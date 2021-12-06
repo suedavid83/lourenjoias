@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+# import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,7 +28,7 @@ SECRET_KEY = '-ghrr$mfsw%sd^g7t*7=i8%$c7hykzs=5lp$q+7wf60fj6zif('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -96,7 +97,7 @@ WSGI_APPLICATION = 'louren.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycog2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'd46fk9kvdfi3cc',
         'USER': 'ajcmgqdmmkevya',
         'PASSWORD': '173e3818eff3a380a6ad1a50ab4445992f6c5b05ba78bbb5127ad107317669aa',
@@ -104,11 +105,11 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-#
+
 # DATABASE_URL = os.environ['DATABASE_URL']
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 # DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-#
+
 # url = urlparse.urlparse(os.environ['DATABASE_URL'])
 # dbname = url.path[1:]
 # user = url.username
@@ -116,13 +117,13 @@ DATABASES = {
 # host = url.hostname
 # port = url.port
 
-con = psycopg2.connect(
-            dbname=dbname,
-            user=user,
-            password=password,
-            host=host,
-            port=port
-            )
+# con = psycopg2.connect(
+#             dbname=dbname,
+#             user=user,
+#             password=password,
+#             host=host,
+#             port=port
+#             )
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
