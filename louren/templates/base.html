@@ -1,0 +1,395 @@
+{% load static %}
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+        {%  block head %}
+         <title>Base</title>
+        {% endblock %}
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <a class="nav-link" href="/louren/" ><img widht="200px;" height="130px;" src="{% static 'images/logo_branco.png' %}" /> </a>
+      <div class="topbar">
+          <ul>
+              <li>
+                  <a href="{% url 'home' %}"> Home </a>
+              </li>
+              {% if request.user.is_authenticated %}
+                  {% if request.user.groups.all.0.name == 'admin' %}
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Fluxo de Caixa
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'cadastrarMaleta' %}"> Cadastrar Maleta </a>
+                            <a href="{% url 'listarMaletas' %}"> Listar Maletas </a>
+                            <a href="{% url 'definirComissao' %}"> Definir comissão Maleta </a>
+                            <a href="{% url 'listarComissoes' %}"> Listar comissão Maleta </a>
+                            <a href="{% url 'registrarVenda' %}"> Registrar Venda </a>
+                            <a href="{% url 'incluirProdutoVenda' %}"> Incluir Produto Venda </a>
+                            <a href="{% url 'registrarPagamento' %}"> Registrar Pagamento </a>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Fornecedores
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'cadastrarFornecedor' %}"> Cadastrar Fornecedor </a>
+                            <a href="{% url 'listarFornecedores' %}"> Listar Fornecedores </a>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuários
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'cadastrarUsuario' %}"> Cadastrar Usuário </a>
+                            <a href="{% url 'listarUsuarios' %}"> Listar Usuários </a>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Produtos
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'cadastrarCategoria' %}"> Cadastrar Categoria </a>
+                            <a href="{% url 'listarCategorias' %}"> Listar Categorias </a>
+                            <a href="{% url 'cadastrarProduto' %}"> Cadastrar Produto </a>
+                            <a href="{% url 'listarProdutos' %}"> Listar Produtos </a>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Clientes
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'cadastrarCliente' %}"> Cadastrar Cliente </a>
+                            <a href="{% url 'listarClientes' %}"> Listar Clientes </a>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Vendedores(as)
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'cadastrarVendedor' %}"> Cadastrar Vendedor(a) </a>
+                            <a href="{% url 'listarVendedores' %}"> Listar Vendedors(as) </a>
+                            <a href="{% url 'listarMaletaVendedores' %}"> Listar Maleta Vendedors(as) </a>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Relatórios
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'relatorioFluxoCaixaAdmin' %}"> Relatório de Vendas </a>
+                            <a href="{% url 'relatorioFluxoCaixaMensal' %}"> Relatório de Vendas Mensal </a>
+                            <a href="{% url 'relatorioFluxoCaixaAnual' %}"> Relatório de Vendas Anual </a>
+                        </div>
+                      </div>
+                      <div class="links-top">
+                        <li>
+                          <a href="{% url 'user_logout' %}"> Logout </a>
+                        </li>
+                      </div>
+                  {% elif request.user.groups.all.0.name == 'vendedor' %}
+                      <li>
+                          <a href="{% url 'cadastrarVendedor' %}"> Cadastrar Vendedor(a) </a>
+                      </li>
+                      <li>
+                          <a href="{% url 'editaVendedor' %}"> Editar Vendedor(a) </a>
+                      </li>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Maleta
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'abrirMaletaVendedor' %}"> Abrir Maleta </a>
+                            <a href="{% url 'adicionarProdutoMaleta' %}"> Adicionar Produto Maleta </a>
+                            <a href="{% url 'listarMaletaAberta' %}"> Listar Maleta </a>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Fluxo de Caixa
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'inicioVendaVendedor' %}"> Registrar Venda </a>
+                            <a href="{% url 'incluirProdutoVendaVendedor' %}"> Adicionar Produto Venda </a>
+                            <a href="{% url 'registrarPagamento' %}"> Registrar Pagamento </a>
+                        </div>
+                      </div>
+                      <div class="links-top3">
+                        <li>
+                          <a href="{% url 'relatorioFluxoCaixaVendedor' %}"> Ver Planilha de Vendas </a>
+                        </li>
+                        <li>
+                          <a href="{% url 'user_logout' %}"> Logout </a>
+                        </li>
+                      </div>
+                  {% elif request.user.groups.all.0.name == 'supervisor' %}
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Fluxo de Caixa
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'registrarVenda' %}"> Registrar Venda </a>
+                            <a href="{% url 'incluirProdutoVenda' %}"> Incluir Produto Venda </a>
+                            <a href="{% url 'registrarPagamento' %}"> Registrar Pagamento </a>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuários
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'cadastrarUsuario' %}"> Cadastrar Usuário </a>
+                            <a href="{% url 'listarUsuarios' %}"> Listar Usuários </a>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Produtos
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'cadastrarCategoria' %}"> Cadastrar Categoria </a>
+                            <a href="{% url 'listarCategorias' %}"> Listar Categorias </a>
+                            <a href="{% url 'cadastrarProdutoVendedor' %}"> Cadastrar Produto </a>
+                            <a href="{% url 'listarProdutos' %}"> Listar Produtos </a>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Vendedores(as)
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'cadastrarVendedor' %}"> Cadastrar Vendedor(a) </a>
+                            <a href="{% url 'listarVendedores' %}"> Listar Vendedors(as) </a>
+                            <a href="{% url 'listarMaletaVendedores' %}"> Listar Maleta Vendedors(as) </a>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Maleta
+                        </a></li>
+                          <div class="dropdown-child">
+                            <a href="{% url 'abrirMaletaVendedor' %}"> Abrir Maleta </a>
+                            <a href="{% url 'adicionarProdutoMaleta' %}"> Adicionar Produto Maleta </a>
+                            <a href="{% url 'listarMaletaAberta' %}"> Listar Maleta </a>
+                        </div>
+                      </div>
+                      <div class="links-top2">
+                        <li>
+                          <a href="{% url 'relatorioFluxoCaixaVendedor' %}"> Ver Planilha de Vendas </a>
+                        </li>
+                        <li>
+                          <a href="{% url 'user_logout' %}"> Logout </a>
+                        </li>
+                      </div>
+                  {% endif %}
+                {% else %}
+                    <li>
+                        <a href="{% url 'login' %}"> Login </a>
+                    </li>
+                {% endif %}
+            </ul>
+          </div>
+          <img id="open" src="{% static 'images/open.png' %}" onclick="openmenu()">
+        </nav>
+        <ul id="menu">
+          <li>
+              <a href="{% url 'home' %}"> Home </a>
+          </li>
+          {% if request.user.is_authenticated %}
+              {% if request.user.groups.all.0.name == 'admin' %}
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Fluxo de Caixa
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'cadastrarMaleta' %}"> Cadastrar Maleta </a>
+                        <a href="{% url 'listarMaletas' %}"> Listar Maletas </a>
+                        <a href="{% url 'definirComissao' %}"> Definir comissão Maleta </a>
+                        <a href="{% url 'listarComissoes' %}"> Listar comissão Maleta </a>
+                        <a href="{% url 'registrarVenda' %}"> Registrar Venda </a>
+                        <a href="{% url 'incluirProdutoVenda' %}"> Incluir Produto Venda </a>
+                        <a href="{% url 'registrarPagamento' %}"> Registrar Pagamento </a>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Fornecedores
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'cadastrarFornecedor' %}"> Cadastrar Fornecedor </a>
+                        <a href="{% url 'listarFornecedores' %}"> Listar Fornecedores </a>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Usuários
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'cadastrarUsuario' %}"> Cadastrar Usuário </a>
+                        <a href="{% url 'listarUsuarios' %}"> Listar Usuários </a>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Produtos
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'cadastrarCategoria' %}"> Cadastrar Categoria </a>
+                        <a href="{% url 'listarCategorias' %}"> Listar Categorias </a>
+                        <a href="{% url 'cadastrarProduto' %}"> Cadastrar Produto </a>
+                        <a href="{% url 'listarProdutos' %}"> Listar Produtos </a>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Clientes
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'cadastrarCliente' %}"> Cadastrar Cliente </a>
+                        <a href="{% url 'listarClientes' %}"> Listar Clientes </a>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Vendedores(as)
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'cadastrarVendedor' %}"> Cadastrar Vendedor(a) </a>
+                        <a href="{% url 'listarVendedores' %}"> Listar Vendedors(as) </a>
+                        <a href="{% url 'listarMaletaVendedores' %}"> Listar Maleta Vendedors(as) </a>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Relatórios
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'relatorioFluxoCaixaAdmin' %}"> Relatório de Vendas </a>
+                        <a href="{% url 'relatorioFluxoCaixaMensal' %}"> Relatório de Vendas Mensal </a>
+                        <a href="{% url 'relatorioFluxoCaixaAnual' %}"> Relatório de Vendas Anual </a>
+                    </div>
+                  </div>
+                    <li>
+                      <a href="{% url 'user_logout' %}"> Logout </a>
+                    </li>
+              {% elif request.user.groups.all.0.name == 'vendedor' %}
+                  <li>
+                      <a href="{% url 'cadastrarVendedor' %}"> Cadastrar Vendedor(a) </a>
+                  </li>
+                  <li>
+                      <a href="{% url 'editaVendedor' %}"> Editar Vendedor(a) </a>
+                  </li>
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Maleta
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'abrirMaletaVendedor' %}"> Abrir Maleta </a>
+                        <a href="{% url 'adicionarProdutoMaleta' %}"> Adicionar Produto Maleta </a>
+                        <a href="{% url 'listarMaletaAberta' %}"> Listar Maleta </a>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Fluxo de Caixa
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'inicioVendaVendedor' %}"> Registrar Venda </a>
+                        <a href="{% url 'incluirProdutoVendaVendedor' %}"> Adicionar Produto Venda </a>
+                        <a href="{% url 'registrarPagamento' %}"> Registrar Pagamento </a>
+                    </div>
+                  </div>
+                    <li>
+                      <a href="{% url 'relatorioFluxoCaixaVendedor' %}"> Ver Planilha de Vendas </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'user_logout' %}"> Logout </a>
+                    </li>
+              {% elif request.user.groups.all.0.name == 'supervisor' %}
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Fluxo de Caixa
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'registrarVenda' %}"> Registrar Venda </a>
+                        <a href="{% url 'incluirProdutoVenda' %}"> Incluir Produto Venda </a>
+                        <a href="{% url 'registrarPagamento' %}"> Registrar Pagamento </a>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Usuários
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'cadastrarUsuario' %}"> Cadastrar Usuário </a>
+                        <a href="{% url 'listarUsuarios' %}"> Listar Usuários </a>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Produtos
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'cadastrarCategoria' %}"> Cadastrar Categoria </a>
+                        <a href="{% url 'listarCategorias' %}"> Listar Categorias </a>
+                        <a href="{% url 'cadastrarProdutoVendedor' %}"> Cadastrar Produto </a>
+                        <a href="{% url 'listarProdutos' %}"> Listar Produtos </a>
+                    </div>
+                  </div>
+                  <div class="dropdown">
+                    <li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Vendedores(as)
+                    </a></li>
+                      <div class="dropdown-child">
+                        <a href="{% url 'cadastrarVendedor' %}"> Cadastrar Vendedor(a) </a>
+                        <a href="{% url 'listarVendedores' %}"> Listar Vendedors(as) </a>
+                        <a href="{% url 'listarMaletaVendedores' %}"> Listar Maleta Vendedors(as) </a>
+                    </div>
+                  </div>
+                    <li>
+                      <a href="{% url 'relatorioFluxoCaixaVendedor' %}"> Ver Planilha de Vendas </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'user_logout' %}"> Logout </a>
+                    </li>
+              {% endif %}
+            {% else %}
+                <li>
+                    <a href="{% url 'login' %}"> Login </a>
+                </li>
+            {% endif %}
+                <img src="{% static 'images/close.png' %}" id="close" class="close-icon" onclick="closemenu()">
+            </ul>
+{% block body %}
+
+{%  endblock %}
+
+{% block content %}
+
+{% endblock%}
+<script>
+      var menu = document.getElementById("menu");
+      var open = document.getElementById("open");
+      var close = document.getElementById("close");
+
+      function closemenu(){
+        menu.style.top = "-170vh";
+        open.style.display = 'block';
+      }
+      function openmenu(){
+        menu.style.top = "0";
+        open.style.display = 'none';
+        close.style.display = 'block';
+      }
+    </script>
+  </body>
+</html>

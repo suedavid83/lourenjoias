@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Lista Usuários </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <p> <h1> Lista Usuários! </h1> </p>
+    <form method="POST" action="{% url 'filtrarUsuario' %}">
+    {% csrf_token %}
+    <p> Informe o nome do usuário: <input name="username">
+       <button type="submit"> Listar Usuário </button> </p>
+    </form>
+</div>
+<div class="tabelas-principal">
+    <h4 style="color:blue;"> {{mensagem}} </h4>
+    <table class="table table-striped">
+      <tr>
+        <th> Username </th> <th> Grupo </th> <th> E-mail </th> <th> Editar </th> <th> Deletar </th>
+      </tr>
+      {% for usuario in usuarios %}
+          <tr>
+            <td> {{usuario.username}} </td>
+            <td> {{usuario.grupo}} </td>
+            <td> {{usuario.email}} </td>
+            <td> <a href="{% url 'editarUsuario' usuario.id %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+            <td> <a href="{% url 'deletarUsuario' usuario.id %}"> <img width="30" height="30" src="{% static 'images/cancel.png' %}"/> </a> </td>
+          </tr>
+      {% endfor %}
+    </table>
+</div>
+{% endblock %}

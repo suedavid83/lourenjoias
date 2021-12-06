@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Listar Categorias </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Listar Categorias </h1> </br>
+<form method="POST" action="{% url 'listarCategoria' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Nome da Categoria: <input name="des_categoria">
+  <button type="submit"> Filtrar </button>
+</form>
+</div>
+<div class="tabelas-principal">
+    <h4 style="color:blue;"> {{mensagem}} </h4>
+    <table class="table table-striped">
+      <tr>
+        <th> Categoria </th> <th> Editar </th> <th> Deletar </th>
+      </tr>
+      {% for categoria in categorias %}
+          <td> {{categoria.des_categoria}} </td>
+          <td> <a href="{% url 'editarCategoria' categoria.id %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+            <td> <a href="{% url 'deletarCategoria' categoria.id %}"> <img width="30" height="30" src="{% static 'images/cancel.png' %}"/> </a> </td>
+      {% endfor %}
+</div>
+{% endblock %}

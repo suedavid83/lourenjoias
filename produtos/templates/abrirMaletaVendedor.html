@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Abrir Maleta </h1>
+  <form method="POST" action="{% url 'listarProdutosMaleta' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p> Informe o Nome do Produto: <input name="des_produto"> ou Informe o código do Produto <input name="cod_produto">
+    <button type="submit"> Filtrar </button>
+  </form>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'abrirMaleta' %}">
+    {% csrf_token %}
+      <input hidden name="id_maletaaberta" value="0">
+    <p> <label> Vendedor: {{vendedor.nome_vendedor}} </label> <input hidden name="vendedor" value="{{vendedor.username}}"> </p>
+    <p> <label> Maleta: {{maleta.nome_maleta}} </label> <input hidden name="id_maleta" value="{{maleta.id}}"> </p>
+    <p><label> Produtos:</label> <select name="cod_produto" id="cod_produto">
+      <option value="" selected>---------</option>
+     {% for produto in produtos %}
+         <option value="{{ produto.cod_produto }}"> {{ produto.des_produto }} </option>
+     {% endfor %}
+    </select> </p>
+    <p><label> Quantidade: </label> <input type="number" size="2" maxlength="3" name="quantidade"></p>
+    <button type="submit"> Abrir Maleta </button>
+  </form>
+</div>
+{% endblock %}

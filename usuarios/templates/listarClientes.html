@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Listar Clientes </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h4> Listar Clientes </h4> </br>
+<form method="POST" action="{% url 'listarCliente' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Nome do Cliente: <input name="nome_cliente">
+  <button type="submit"> Filtrar </button>
+</form>
+</div>
+<div class="tabelas-principal">
+    <h4 style="color:blue;"> {{mensagem}} </h4>
+    <table class="table table-striped">
+      <tr>
+        <th> Nome Cliente </th> <th> Endereço </th> <th> Bairro </th> <th> Cidade </th> <th> Estado </th> <th> CEP </th> <th> Telefone </th><th> Email </th> <th> Whatsapp </th> <th> Editar </th> <th> Deletar </th>
+      </tr>
+      {% for cliente in clientes %}
+        <tr>
+          <td> {{cliente.nome_cliente}} </td>
+          <td> {{cliente.endereco}} </td>
+          <td> {{cliente.bairro}} </td>
+          <td> {{cliente.cidade}} </td>
+          <td> {{cliente.estado}} </td>
+          <td> {{cliente.cep}} </td>
+          <td> {{cliente.telefone}} </td>
+          <td> {{cliente.email}} </td>
+          <td> {{cliente.whatsapp}} </td>
+          <td> <a href="{% url 'editarCliente' cliente.id %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+          <td> <a href="{% url 'deletarCliente' cliente.id %}"> <img width="30" height="30" src="{% static 'images/cancel.png' %}"/> </a> </td>
+         </tr>
+      {% endfor %}
+  </table>
+</div>
+{% endblock %}

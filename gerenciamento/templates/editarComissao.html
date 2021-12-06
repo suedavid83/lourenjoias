@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Editar Comissão </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Editar Comissão Maleta x Vendedor </h1> </br>
+<form method="POST" action="{% url 'alterarComissao' comissao.id %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p><label> Maleta:</label> <select name="id_maleta" id="id_maleta">
+    <option value="{{comissao.id_maleta}}" selected>{{comissao.nome_maleta}}</option>
+   {% for maleta in maletas %}
+       <option value="{{ maleta.id }}"> {{ maleta.nome_maleta }} </option>
+   {% endfor %}
+  </select> </p>
+  <p><label> Vendedor(a):</label> <select name="vendedor" id="vendedor">
+    <option value="{{comissao.vendedor}}" selected>{{comissao.nome_vendedor}}</option>
+   {% for vendedor in vendedores %}
+       <option value="{{ vendedor.username }}"> {{ vendedor.nome_vendedor }} </option>
+   {% endfor %}
+   </select></p>
+   <p><label> Comissão: </label> <input type="number" name="valor_comissao" min="0" max="100" step="0.01" value="{{comissao.valor_comissao}}"></p>
+  <button type="submit"> Atualizar Dados </button>
+</form>
+</div>
+{% endblock %}

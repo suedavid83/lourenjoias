@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Editar Cliente </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'alterarCliente' cliente.id %}">
+    {% csrf_token %}
+    <p> <label> Nome Cliente: </label> <input type="text" maxlength="100" name="nome_cliente" value="{{cliente.nome_cliente}}">
+    <p> <label> Endereço: </label> <input type="text" maxlength="200" name="endereco" value="{{cliente.endereco}}">
+    <p> <label> Bairro: </label> <input type="text" maxlength="30" name="bairro" value="{{cliente.bairro}}">
+    <p> <label> Cidade: </label> <input type="text" maxlength="30" name="cidade" value="{{cliente.bairro}}">
+    <p> <label> Estado: </label> <input type="text" size="3" maxlength="2" name="estado" value="{{cliente.estado}}">
+    <p> <label> CEP: </label> <input type="text" maxlength="30" name="cep" value="{{cliente.cep}}">
+    <p> <label> Telefone: </label> <input type="text" maxlength="20" name="telefone" value="{{cliente.telefone}}">
+    <p> <label> Email: </label> <input type="text" maxlength="200" name="email" value="{{cliente.email}}">
+      <p> <label> É WhatsApp? </label>
+        <div id="radios">
+          {% if cliente.whatsapp == "Sim" %}
+              <p> <label> Sim </label> <input type="radio" maxlength="20" name="whatsapp" id="rSim" value="Sim" checked></p>
+              <p> <label> Não </label> <input type="radio" maxlength="20" name="whatsapp" id="rNao" value="Não"></p>
+          {% elif cliente.whatsapp == "Não" %}
+              <p> <label> Sim </label> <input type="radio" maxlength="20" name="whatsapp" id="rSim" value="Sim"></p>
+              <p> <label> Não </label> <input type="radio" maxlength="20" name="whatsapp" id="rNao" value="Não" checked></p>
+          {% else %}
+              <p> <label> Sim </label> <input type="radio" maxlength="20" name="whatsapp" id="rSim" value="Sim"></p>
+              <p> <label> Não </label> <input type="radio" maxlength="20" name="whatsapp" id="rNao" value="Não"></p>
+          {% endif %}
+        </div>
+    <button type="submit"> Atualizar dados </button>
+  </form>
+</div>
+{% endblock %}
+
+<script>
+    var radios = document.getElementById('radios').value;
+    if (document.getElementById('rSim').checked) {
+        whatsapp = document.getElementById('rSim').value;
+    else if (document.getElementById('rNao').checked) {
+        whatsapp = document.getElementById('rNao').value;
+      }
+    }
+</script>

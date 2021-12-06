@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Registrar Venda </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Registrar Venda </h1> </br>
+<form method="POST" action="{% url 'efetivarVendaVendedor' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+      <input hidden name="id_venda" value="0">
+      <input hidden name="valor_custo" value="0">
+  <p><label> Vendedor(a): {{vendedor.nome_vendedor}}</label> <input hidden name="vendedor" value="{{vendedor.username}}"> </p>
+  <p><label> Data Venda: </label> <input type="date" name="dt_venda"></p>
+  <p><label> Hora: </label> <input type="time" name="hr_venda"></p>
+  <p><label> Cliente:</label> <select name="nome_cliente" id="nome_cliente">
+    <option value="" selected>---------</option>
+   {% for cliente in clientes %}
+       <option value="{{ cliente.id }}"> {{ cliente.nome_cliente }} </option>
+   {% endfor %}
+  </select> </p>
+  <p><label> Produtos:</label> <select name="cod_produto" id="cod_produto">
+    <option value="" selected>---------</option>
+   {% for produto in produtos %}
+       <option value="{{ produto.cod_produto }}"> {{ produto.des_produto }} </option>
+   {% endfor %}
+  </select> </p>
+  <p><label> Quantidade: </label> <input type="number" size="3" name="quantidade"></p>
+  <p><label> Tipo Pagamento: </label> <input type="text" maxlength="50" name="tipo_pagamento"></p>
+  <p><label> Tipo Venda:</label> <select name="tipo_venda" id="tipo_venda">
+    <option value="" selected>---------</option>
+    <option value="Online"> Online </option>
+    <option value="A campo"> A Campo </option>
+  </select> </p>
+  <p><label> Qtde. Parcelas: </label> <select name="qtde_parcelas" id="qtde_parcelas">
+    <option value="" selected>---------</option>
+    <option value="1"> 1 </option>
+    <option value="2"> 2 </option>
+    <option value="3"> 3 </option>
+    <option value="4"> 4 </option>
+    <option value="5"> 5 </option>
+    <option value="6"> 6 </option>
+  </select> </p>
+      <input hidden name="valor_pago" value="0">
+  <button type="submit"> Registrar Venda </button>
+</form>
+</div>
+{% endblock %}

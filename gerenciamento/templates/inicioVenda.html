@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Registrar Venda </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Registrar Venda </h1> </br>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'filtrarCliente' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Nome do Cliente: <input name="nome_cliente"> e/ou Informe a Descrição do Produto <input name="des_produto">
+  <button type="submit"> Filtrar </button>
+</form>
+</div>
+{% endblock %}

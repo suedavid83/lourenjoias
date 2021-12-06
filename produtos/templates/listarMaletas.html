@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Listar Maletas </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Listar Maletas </h1> </br>
+<form method="POST" action="{% url 'listarMaleta' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Nome da Maleta: <input name="nome_maleta">
+  <button type="submit"> Filtrar </button>
+</form>
+</div>
+<div class="tabelas-principal">
+    <h4 style="color:blue;"> {{mensagem}} </h4>
+    <table class="table table-striped">
+      <tr>
+        <th> Maleta </th> <th> Faixa Inicial </th> <th> Faixa Final </th> <th> Editar </th> <th> Deletar </th>
+      </tr>
+      {% for maleta in maletas %}
+      <tr>
+          <td> {{maleta.nome_maleta}} </td>
+          <td> {{maleta.faixa_inicial}} </td>
+          <td> {{maleta.faixa_final}} </td>
+          <td> <a href="{% url 'editarMaleta' maleta.id %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+          <td> <a href="{% url 'deletarMaleta' maleta.id %}"> <img width="30" height="30" src="{% static 'images/cancel.png' %}"/> </a> </td>
+      </tr>
+      {% endfor %}
+</div>
+{% endblock %}

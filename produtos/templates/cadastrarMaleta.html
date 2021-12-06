@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Cadastrar Maleta </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'efetuarCadastroMaleta' %}">
+    {% csrf_token %}
+      <p> <label> Nome Maleta: </label> <input type="text" maxlength="30" name="nome_maleta"> </p>
+      <p> <label> Faixa Inicial: </label> <input type="number" id="faixa_inicial" name="faixa_inicial"> </p>
+      <p> <label> Faixa Final: </label> <input type="number" id="faixa_final" name="faixa_final"> </p>
+    <button type="submit"> Cadastrar </button>
+  </form>
+</div>
+<script>
+    var valor_inicial = document.getElementById("#faixa_inicial").value
+    var faixa_inicial = valor_inicial.replace(",",".")
+    document.getElementById("#faixa_inicial").value = faixa_inicial;
+    var valor_final = document.getElementById("#faixa_final").value
+    var faixa_final = valor_final.replace(",",".")
+    document.getElementById("#faixa_final").value = faixa_final;
+</script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Erro de formulário </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <p> <h4> {{mensagem}}! Erro: {{error}} </h4> </p>
+  {% if tipo == "cadastro_comissao" %}
+      <a href="{% url 'definirComissao' %}"> <button class="btn btn-primary"> Voltar </button> </a>
+  {% elif tipo == "adicionar_produto" %}
+      <a href="{% url 'incluirProdutoVenda' %}"> <button class="btn btn-primary"> Voltar </button> </a>
+  {% elif tipo == "cadastrar_fornecedor" %}
+      <a href="{% url 'cadastrarFornecedor' %}"> <button class="btn btn-primary"> Voltar </button> </a>
+  {% elif tipo == "registrar_venda_vendedor" %}
+      <a href="{% url 'home' %}"> <button class="btn btn-primary"> Voltar </button> </a>
+  {% elif tipo == "adicionar_produto_vendedor" %}
+      <a href="{% url 'finalizarVendaVendedor' %}"> <button class="btn btn-primary"> Voltar </button> </a>
+  {% elif tipo == "maleta_nao_aberta" %}
+      <a href="{% url 'inicioVendaVendedor' %}"> <button class="btn btn-primary"> Voltar </button> </a>
+  {% endif %}
+</div>
+{% endblock %}

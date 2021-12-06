@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Efetuar Pagamento </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h4> Efetuar Pagamento </h4> </br>
+  <form method="POST" action="{% url 'efetivarPagamento' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p><label> Cliente: {{venda.nome_cliente}} </label> <input hidden name="nome_cliente" value="{{venda.nome_cliente}}"> </p>
+        <input hidden name="id_venda" value="{{venda.id}}">
+    <p><label> Valor Total: {{venda.valor_total}} </label> <input hidden name="valor_total" value="{{venda.valor_total}}"> </p>
+    <p><label> Qtde. de Parcelas: {{venda.qtde_parcelas}} </label> <input hidden name="qtde_parcelas" value="{{venda.qtde_parceça}}"> </p>
+    <p><label> Parcela: {{venda.parcela}} </label> <input hidden name="parcela" value="{{venda.parcela}}"> </p>
+    <p><label> Valor Pago: {{venda.valor_pago}} </label> </p>
+      <p><input name="valor_pago" value="{{venda.valor_pago}}"> </p>
+    <p><label> Valor Total Pago: {{venda.valor_total_pago}} </label> <input hidden name="valor_total_pago" value="{{venda.valor_total_pago}}"> </p>
+    <button type="submit"> Registrar Pagamento </button>
+  </form>
+</div>
+{% endblock %}

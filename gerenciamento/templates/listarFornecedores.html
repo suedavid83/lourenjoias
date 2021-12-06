@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Listar Fornecedores </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Listar Fornecedores </h1> </br>
+<form method="POST" action="{% url 'filtrarFornecedor' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Nome do Fornecedor: <input name="nome_fornecedor">
+  <button type="submit"> Filtrar </button>
+</form>
+</div>
+<div class="tabelas-principal">
+    <h4 style="color:blue;"> {{mensagem}} </h4>
+    <table class="table table-striped">
+      <tr>
+        <th> Fornecedor </th> <th> Endereço </th> <th> Cidade </th> <th> Telefone </th> <th> Contato </th> <th> Editar </th> <th> Deletar </th>
+      </tr>
+      {% for fornecedor in fornecedores %}
+        <tr>
+          <td> {{fornecedor.nome_fornecedor}} </td>
+          <td> {{fornecedor.endereco}} </td>
+          <td> {{fornecedor.cidade}} </td>
+          <td> {{fornecedor.telefone}} </td>
+          <td> {{fornecedor.contato}} </td>
+          <td> <a href="{% url 'editarFornecedor' fornecedor.id %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+          <td> <a href="{% url 'deletarFornecedor' fornecedor.id %}"> <img width="30" height="30" src="{% static 'images/cancel.png' %}"/> </a> </td>
+        </tr>
+      {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Cadastrar Produto </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'efetuarCadastroProduto' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+      <p> <label> Código Produto: </label> <input type="text" maxlength="30" name="cod_produto">
+      <p> <label> Descrição Produto: </label> <input type="text" maxlength="100" name="des_produto">
+      <p> <label> Preço Unitário: </label> <input id="preco_unitario" type="number" name="preco_unitario">
+      <p> <label> Coleção: </label> <input type="text" maxlength="30" name="colecao">
+      <p> <label> Qtde. Estoque: </label> <input type="number" size="5" name="qtde_estoque">
+      <p><label> Categoria:</label> <select name="cod_categoria" id="cod_categoria">
+        <option value="" selected>---------</option>
+       {% for categoria in categorias %}
+           <option value="{{ categoria.id }}"> {{ categoria.des_categoria }} </option>
+       {% endfor %}
+      </select> </p>
+      <p><label> Fornecedor:</label> <select name="id_fornecedor" id="cod_categoria">
+        <option value="" selected>---------</option>
+       {% for fornecedor in fornecedores %}
+           <option value="{{ fornecedor.id }}"> {{ fornecedor.nome_fornecedor }} </option>
+       {% endfor %}
+      </select> </p>
+      <p><label> Foto Produto: </label> <input id="img_produto" type="file" name="img_produto" onchange='fileSelect(img_produto, event)'/></p>
+    <button type="submit"> Cadastrar </button>
+  </form>
+</div>
+<script>
+    var valor_preco = document.getElementById("#preco_unitario").value
+    var preco_unitario = valor_preco.replace(",",".")
+    document.getElementById("#preco_unitario").value = preco_unitario;
+</script>
+{% endblock %}

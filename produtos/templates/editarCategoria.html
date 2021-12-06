@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Editar Categoria </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'alterarCategoria' categoria.id %}">
+    {% csrf_token %}
+      <p> <label> Descrição Categoria: </label> <input type="text" maxlength="30" name="des_categoria" value="{{categoria.des_categoria}}"></p>
+    <button type="submit"> Atualizar dados </button>
+  </form>
+</div>
+{% endblock %}

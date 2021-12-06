@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Cadastrar Vendedor </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'efetuarCadastroVendedor' %}">
+    {% csrf_token %}
+    <p><label> Username:</label> <select name="username" id="username">
+      {% if username %}
+      <option value="{{username}}" selected>{{username}}</option>
+    {% else %}
+       {% for user in usuarios %}
+           <option value="{{ user.username }}"> {{ user.username }} </option>
+       {% endfor %}
+    {% endif %}
+    </select> </p>
+      <p> <label> Nome Vendedor: </label> <input type="text" maxlength="100" name="nome_vendedor"></p>
+      <p> <label> CPF / CNPJ: </label> <input type="text" maxlength="50" name="cpf_cnpj"></p>
+      <p> <label> RG: </label> <input type="text" maxlength="20" name="rg"></p>
+      <p> <label> Endereço: </label> <input type="text" maxlength="200" name="endereco"></p>
+      <p> <label> Bairro: </label> <input type="text" maxlength="30" name="bairro"></p>
+      <p> <label> Cidade: </label> <input type="text" maxlength="30" name="cidade"></p>
+      <p> <label> Estado: </label> <input type="text" size="3" maxlength="2" name="estado"></p>
+      <p> <label> CEP: </label> <input type="text" maxlength="20" name="cep"></p>
+      <p> <label> Telefone: </label> <input type="text" maxlength="20" name="telefone"></p>
+      <p><label> Maleta:</label> <select name="id_maleta" id="id_maleta">
+        <option value="" selected>---------</option>
+         {% for maleta in maletas %}
+             <option value="{{ maleta.id }}"> {{ maleta.nome_maleta }} </option>
+         {% endfor %}
+      </select> </p>
+      <p> <label> Referência Empresa (1): </label> <input type="text" maxlength="50" name="ref1_empresa"></p>
+      <p> <label> Contato: </label> <input type="text" maxlength="30" name="ref1_contato"></p>
+      <p> <label> Telefone: </label> <input type="text" maxlength="20" name="ref1_telefone"></p>
+      <p> <label> Referência Empresa (2): </label> <input type="text" maxlength="50" name="ref2_empresa"></p>
+      <p> <label> Contato: </label> <input type="text" maxlength="30" name="ref2_contato"></p>
+      <p> <label> Telefone: </label> <input type="text" maxlength="20" name="ref2_telefone"></p>
+    <button type="submit"> Cadastrar </button>
+  </form>
+</div>
+{% endblock %}

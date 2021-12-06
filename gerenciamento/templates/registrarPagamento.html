@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Registrar Pagamento </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Registrar Pagamento </h1> </br>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'filtrarClienteProduto' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Nome do Cliente: <input name="nome_cliente"> e/ou Informe a Descrição do Produto <input name="des_produto">
+  <button type="submit"> Filtrar </button>
+</form>
+</div>
+<div class="tabelas-principal">
+  <form>
+  <table class="table table-striped">
+    <tr>
+      <th> Data / hora Venda </th> <th> Vendedor </th> <th> Cliente </th> <th> Valor Total </th> <th> Parcela </th> <th> Valor Pago </th> <th> Valor Total Pago </th> <th> Confirmar Pagamento </th> <th> Deletar </th>
+    </tr>
+    {% for venda in vendas %}
+      <tr>
+        <td> {{venda.dt_venda}} {{venda.hr_venda}} </td>
+        <td> {{venda.nome_vendedor}} </td>
+        <td> {{venda.nome_cliente}} </td>
+        <td> {{venda.valor_total}} </td>
+        <td> {{venda.parcela}} </td>
+        <td> {{venda.valor_pago}} </td>
+        <td> {{venda.valor_total_pago}} </td>
+        <td> <a href="{% url 'efetuarPagamento' venda.id venda.parcela %}"> <img width="30" height="30" src="{% static 'images/ok.png' %}"/> </a> </td>
+        <td> <a href="{% url 'deletarPagamento' venda.id venda.parcela %}"> <img width="30" height="30" src="{% static 'images/cancel.png' %}"/> </a> </td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

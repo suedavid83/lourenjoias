@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Listar Maleta Aberta </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+    <h1> Lista Maleta Aberta Vendedor </h1>
+    <form method="POST" action="{% url 'listarProdutoMaleta' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <p> Informe o Nome do Produto: <input name="des_produto"> ou o Código do Produto: <input name="cod_produto">
+      <button type="submit"> Filtrar </button>
+    </form>
+    <h4 style="color:blue;"> {{mensagem}} </h4>
+    <table class="table table-striped">
+      <tr>
+        <th> Vendedor </th> <th> Maleta </th> <th> Produto </th> <th> Quantidade </th> <th> Qtde. Vendida </th> <th> Editar </th> <th> Deletar </th>
+      </tr>
+      {% for maleta in maletas %}
+        <tr>
+          <td> {{maleta.nome_vendedor}} </td>
+          <td> {{maleta.nome_maleta}} </td>
+          <td> {{maleta.des_produto}} </td>
+          <td> {{maleta.quantidade}} </td>
+          {% if maleta.qtde_vendida == None %}
+            <td> 0 </td>
+          {% else %}
+            <td> {{maleta.qtde_vendida}} </td>
+          {% endif %}
+          <td> <a href="{% url 'editarMaletaAberta' maleta.id maleta.cod_produto %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+          <td> <a href="{% url 'deletarMaletaAberta' maleta.id maleta.cod_produto %}"> <img width="30" height="30" src="{% static 'images/cancel.png' %}"/> </a> </td>
+        </tr>
+      {% endfor %}
+</div>
+{% endblock %}

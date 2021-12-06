@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Relatório de Vendas Admin </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Relatório de Vendas Admin </h1> </br>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'listarClienteProdutoAdmin' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Nome do Cliente: <input name="nome_cliente"> e/ou Informe a Descrição do Produto <input name="des_produto">
+  <button type="submit"> Filtrar </button>
+</form>
+</div>
+<div class="tabelas-principal">
+  <table class="table table-striped">
+    <tr>
+      <th> Data /Hora Venda </th> <th> Cliente </th> <th> Código Produto </th> <th> Descrição </th> <th> Quantidade </th> <th> Preço Unitário </th> <th> Qtde.Parcelas </th> <th> Vendedor(a) </th> <th> % Comissão </th> <th> Valor Comissão </th> <th> Valor Custo </th> <th> Valor Total </th>
+      <th> Lucro </th> <th> Valor Total Venda </th> <th> Valor Total Pago </th> <th> Foto Produto </th> <th> Status </th>
+    </tr>
+    {% for venda in vendas %}
+      <tr>
+        <td> {{venda.dt_venda}} {{venda.hr_venda}} </td>
+        <td> {{venda.nome_cliente}} </td>
+        <td> {{venda.cod_produto}} </td>
+        <td> {{venda.des_produto}} </td>
+        <td> {{venda.quantidade}} </td>
+        <td> {{venda.preco_unitario}} </td>
+        <td> {{venda.qtde_parcelas}} </td>
+        <td> {{venda.vendedor}} </td>
+        <td> {{venda.comissao}}% </td>
+        <td> {{venda.valor_comissao}} </td>
+        <td> {{venda.valor_custo}} </td>
+        <td> {{venda.valor_total}} </td>
+        <td> {{venda.lucro}} </td>
+        <td> {{venda.valor_total_venda}} </td>
+        <td> {{venda.valor_total_pago}} </td>
+        <td>
+          {% if venda.img_produto %}
+            <a href="/louren/media/{{venda.img_produto}}" target="blank"><img widht="80px" height="50px" src="/louren/media/{{venda.img_produto}}"/></a>
+          {% endif %}
+        </td>
+        {% if venda.status == "verde" %}
+            <td> <img width="30" height="30" src="{% static 'images/verde.png' %}"/> </td>
+        {% elif venda.status == "amarelo" %}
+            <td> <img width="30" height="30" src="{% static 'images/amarelo.png' %}"/> </td>
+        {% elif venda.status == "vermelho" %}
+            <td> <img width="40" height="30" src="{% static 'images/vermelho.png' %}"/> </td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

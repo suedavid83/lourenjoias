@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Editar Fornecedor </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'alterarFornecedor' fornecedor.id %}">
+    {% csrf_token %}
+      <p> <label> Fornecedor: </label> <input type="text" maxlength="50" name="nome_fornecedor" value="{{fornecedor.nome_fornecedor}}"></p>
+      <p> <label> Endereço: </label> <input type="text" maxlength="200" name="endereco" value="{{fornecedor.endereco}}"> </p>
+      <p> <label> Cidade: </label> <input type="text" maxlength="30" name="cidade" value="{{fornecedor.cidade}}"></p>
+      <p> <label> Telefone: </label> <input type="text" maxlength="20" name="telefone" value="{{fornecedor.telefone}}"></p>
+      <p> <label> Contato: </label> <input type="text" maxlength="50" name="contato" value="{{fornecedor.contato}}"></p>
+    <button type="submit"> Atualizar dados </button>
+  </form>
+</div>
+{% endblock %}

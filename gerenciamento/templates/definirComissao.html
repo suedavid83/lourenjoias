@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Definir Comissão </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Definir Comissão Maleta x Vendedor </h1> </br>
+<form method="POST" action="{% url 'definicaoComissao' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p><label> Vendedor(a): {{vendedor.nome_vendedor}} </label> <input hidden name="vendedor" value="{{vendedor.username}}"</p>
+  <p><label> Maleta:</label> <select name="id_maleta" id="id_maleta">
+    <option value="{{maleta.id}}" selected>{{maleta.nome_maleta}}</option>
+  </select> </p>
+   <p><label> Comissão: </label> <input type="number" name="valor_comissao" min="0" max="100" step="0.01"></p>
+  <button type="submit"> Cadastrar </button>
+</form>
+</div>
+{% endblock %}

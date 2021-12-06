@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Cadastrar Cliente </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'efetuarCadastroCliente' %}">
+    {% csrf_token %}
+      <p> <label> Nome Cliente: </label> <input type="text" maxlength="100" name="nome_cliente">
+      <p> <label> Endereço: </label> <input type="text" maxlength="200" name="endereco">
+      <p> <label> Bairro: </label> <input type="text" maxlength="30" name="bairro">
+      <p> <label> Cidade: </label> <input type="text" maxlength="30" name="cidade">
+      <p> <label> Estado: </label> <input type="text" size="3" maxlength="2" name="estado">
+      <p> <label> CEP: </label> <input type="text" maxlength="30" name="cep">
+      <p> <label> Telefone: </label> <input type="text" maxlength="20" name="telefone">
+      <p> <label> Email: </label> <input type="text" maxlength="200" name="email">
+      <p> <label> É WhatsApp? </label>
+        <div id="radios">
+          <p> <label> Sim </label> <input type="radio" maxlength="20" name="whatsapp" id="rSim" value="Sim"></p>
+          <p> <label> Não </label> <input type="radio" maxlength="20" name="whatsapp" id="rNao" value="Não"></p>
+        </div>
+    <button type="submit"> Cadastrar </button>
+  </form>
+</div>
+{% endblock %}
+<script>
+    var radios = document.getElementById('radios').value;
+    if (document.getElementById('rSim').checked) {
+        whatsapp = document.getElementById('rSim').value;
+    else if (document.getElementById('rNao').checked) {
+        whatsapp = document.getElementById('rNao').value;
+      }
+    }
+</script>

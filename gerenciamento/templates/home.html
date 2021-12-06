@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+  <div class="container-home">
+      <p><h4 style="color:blue;"> {{mensagem}} </h4> </p>
+      <p> Bem vindo(a) ao site da <strong> Louren Jóias</strong>! </p>
+      <p> Faça o login e veja as funcionalidades disponibilizadas para seu usuário. Caso não tenha ainda usuário criado, entre em contato com o Administrador do site via Whatsapp (link abaixo) </p>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div>
+  <div class="whatsapp">
+      <p style="font-weight:bold"> Entre em contato a qualquer momento via WhatsApp
+      <a target="blank" href="https://api.whatsapp.com/send?phone=+5511985816169&text=Olá, tenho algumas dúvidas, poderia me ajudar?"> <img width="60" height="60" src="{% static 'images/whatsapp.png' %}"> </a> </p>
+  </div>
+</div>
+{% endblock %}

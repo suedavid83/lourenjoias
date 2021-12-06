@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Cadastrar Usuário </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'efetuarCadastroUsuario' %}">
+    {% csrf_token %}
+      <p> <label for="grupo">Grupo:</label>
+        <select name="grupo" required id="grupo">
+          <option value="">---------</option>
+          {% for grupo in grupos %}
+              <option value="{{grupo.id}}">{{ grupo }}</option>
+          {% endfor %}
+        </select></p>
+      <p>
+      <p>
+        <label for="id_username">Usuário:</label>
+        <input type="text" name="username" maxlength="20" autofocus required id="id_username">
+      </p>
+        <label for="id_password1">Senha:</label>
+        <input type="password" name="password1" required id="id_password1">
+      </p>
+
+      <p>
+        <label for="id_password2">Confirmação de Senha:</label>
+        <input type="password" name="password2" required id="id_password2">
+      </p>
+
+      <p><label for="email">Email:</label> <input type="text" name="email" maxlength="100" id="email"></p>
+    <button type="submit"> Cadastrar </button>
+  </form>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Definir Comissão </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Definir Comissão Produto x Vendedor </h1> </br>
+<form method="POST" action="{% url 'filtrarVendedor' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Nome do Vendedor(a): <input name="nome_vendedor">
+  <button type="submit"> Próximo </button>
+</form>
+</div>
+{% endblock %}

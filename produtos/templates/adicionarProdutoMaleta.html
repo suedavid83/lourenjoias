@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Listar Maletas </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+    <h1> Adicionar Produto Maleta </h1>
+    <h4 style="color:blue;"> {{mensagem}} </h4>
+    <table class="table table-striped">
+      <tr>
+        <th> Vendedor </th> <th> Maleta </th> <th> Produto </th> <th> Quantidade </th> <th> Adicionar Produto </th>
+      </tr>
+      {% for maleta in maletas %}
+      <tr>
+          <td> {{maleta.nome_vendedor}} </td>
+          <td> {{maleta.nome_maleta}} </td>
+          <td> {{maleta.des_produto}} </td>
+          <td> {{maleta.quantidade}} </td>
+          <td> <a href="{% url 'addProdutoMaleta' maleta.id maleta.cod_produto %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+      </tr>
+      {% endfor %}
+</div>
+{% endblock %}

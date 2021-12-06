@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Editar Usuário </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Editar Usuário </h1> </br>
+  <form method="POST" action="{% url 'alterarUsuario' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p><label> Username: {{usuario.username}} </label> <input hidden maxlength="30" name="username" value="{{usuario.username}}"> </p>
+    <p><label> Grupo:</label> <select name="grupo" id="grupo">
+    <option value="{{usuario.grupo_id}}" selected>{{usuario.grupo}}</option>
+   {% for grupo in grupos %}
+       <option value="{{ grupo.id }}"> {{ grupo.name }} </option>
+   {% endfor %} </select>
+   <p><label> Email: </label> <input maxlength="200" name="email" value="{{usuario.email}}"> </p>
+    <button type="submit"> Atualizar dados </button>
+  </form>
+</div>
+{% endblock %}

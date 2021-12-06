@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Cadastrar Fornecedor </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'efetuarCadastroFornecedor' %}">
+    {% csrf_token %}
+      <p> <label> Nome Fornecedor(*): </label> <input type="text" maxlength="50" name="nome_fornecedor"> </p>
+      <p> <label> Endereço: </label> <input type="text" maxlength="200" name="endereco"> </p>
+      <p> <label> Cidade: </label> <input type="text" maxlength="30" name="cidade"> </p>
+      <p> <label> Telefone(*): </label> <input type="text" maxlength="20" name="telefone"> </p>
+      <p> <label> Contato(*): </label> <input type="text" maxlength="50" name="contato"> </p> 
+    <button type="submit"> Cadastrar </button>
+  </form>
+</div>
+{% endblock %}

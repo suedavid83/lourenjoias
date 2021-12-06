@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Finalizar Venda </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Finalizar Venda Vendedor </h1> </br>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+  <form method="POST" action="{% url 'filtrarClienteVendedor' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p> Informe o Nome do Cliente: <input name="nome_cliente">
+    <button type="submit"> Filtrar </button>
+  </form>
+  <table class="table table-striped">
+     <input hidden name="id_venda" value={{id_venda}}>
+    <tr>
+      <th> Data /Hora Venda </th> <th> Vendedor(a) </th> <th> Cliente </th> <th> Código Produto </th> <th> Descrição </th> <th> Quantidade </th> <th> Preço Unitário </th> <th> Qtde.Parcelas </th> <th> Valor Total </th> <th> Valor Total Pago </th> <th> Foto Produto </th> <th> Incluir Produto </th>
+    </tr>
+    {% for venda in vendas %}
+      <tr>
+        <td> {{venda.dt_venda}} {{venda.hr_venda}} </td>
+        <td> {{venda.nome_vendedor}} </td>
+        <td> {{venda.nome_cliente}} </td>
+        <td> {{venda.cod_produto}} </td>
+        <td> {{venda.des_produto}} </td>
+        <td> {{venda.quantidade}} </td>
+        <td> {{venda.preco_unitario}} </td>
+        <td> {{venda.qtde_parcelas}} </td>
+        <td> {{venda.valor_total}} </td>
+        <td> {{venda.valor_total_pago}} </td>
+        <td>
+          {% if venda.img_produto %}
+              <a href="/louren/media/{{venda.img_produto}}" target="blank"><img widht="80px" height="50px" src="/louren/media/{{venda.img_produto}}"/></a>
+          {% endif %}
+        </td>
+        <td> <a href="{% url 'adicionarProdutoVendedor' venda.id venda.cod_produto %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

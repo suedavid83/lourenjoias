@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Listar Vendedores(as) </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h4> Listar Vendedores(as) </h4> </br>
+<form method="POST" action="{% url 'listarVendedor' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Nome do Vendedor: <input name="nome_vendedor">
+  <button type="submit"> Filtrar </button>
+</form>
+</div>
+<div class="tabelas-principal">
+    <h4 style="color:blue;"> {{mensagem}} </h4>
+    <table class="table table-striped">
+      <tr>
+        <th> Nome Vendedor </th> <th> CPF / CNPJ </th> <th> RG </th> <th> Endereço </th> <th> Bairro </th> <th> Cidade </th> <th> Estado </th> <th> CEP </th> <th> Telefone </th><th> Maleta </th> <th> Ref. Empresa (1) </th> <th> Contato </th>
+        <th> Telefone </th> <th> Ref. Empresa (2) </th> <th> Contato </th> <th> Telefone </th> <th> Editar </th> <th> Deletar </th>
+      </tr>
+      {% for vendedor in vendedores %}
+        <tr>
+          <td> {{vendedor.nome_vendedor}} </td>
+          <td> {{vendedor.cpf_cnpj}} </td>
+          <td> {{vendedor.rg}} </td>
+          <td> {{vendedor.endereco}} </td>
+          <td> {{vendedor.bairro}} </td>
+          <td> {{vendedor.cidade}} </td>
+          <td> {{vendedor.estado}} </td>
+          <td> {{vendedor.cep}} </td>
+          <td> {{vendedor.telefone}} </td>
+          <td> {{vendedor.nome_maleta}} </td>
+          <td> {{vendedor.ref1_empresa}} </td>
+          <td> {{vendedor.ref1_contato}} </td>
+          <td> {{vendedor.ref1_telefone}} </td>
+          <td> {{vendedor.ref2_empresa}} </td>
+          <td> {{vendedor.ref2_contato}} </td>
+          <td> {{vendedor.ref2_telefone}} </td>
+          <td> <a href="{% url 'editarVendedor' vendedor.id %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+          <td> <a href="{% url 'deletarVendedor' vendedor.id %}"> <img width="30" height="30" src="{% static 'images/cancel.png' %}"/> </a> </td>
+         </tr>
+      {% endfor %}
+  </table>
+</div>
+{% endblock %}

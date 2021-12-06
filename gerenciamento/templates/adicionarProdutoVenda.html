@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Registrar Venda </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Registrar Venda </h1> </br>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'filtrarProduto' venda_id %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Nome do Produto: <input name="des_produto">
+    <input hidden name="id_venda" value="{{venda_id}}">
+  <button type="submit"> Filtrar </button>
+</form>
+  <form method="POST" action="{% url 'adicionarProdutoVenda' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input hidden name="id_venda" value="{{venda_id}}">
+  <p><label> Produtos:</label> <select name="cod_produto" id="cod_produto">
+    <option value="" selected>---------</option>
+   {% for produto in produtos %}
+       <option value="{{ produto.cod_produto }}"> {{ produto.des_produto }} </option>
+   {% endfor %}
+  </select> </p>
+  <p><label> Quantidade: </label> <input type="number" size="3" name="quantidade">
+  <button type="submit"> Adicionar Produto </button>
+  </form>
+</div>
+{% endblock %}

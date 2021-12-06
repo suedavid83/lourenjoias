@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Editar Vendedor </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'alterarVendedor' vendedor.id %}">
+    {% csrf_token %}
+    <p><label> Username: {{vendedor.username}} </label> <input hidden name="username" value="{{vendedor.username}}"></p>
+      <p> <label> Nome Vendedor: </label> <input type="text" maxlength="100" name="nome_vendedor" value="{{vendedor.nome_vendedor}}"></p>
+      <p> <label> CPF / CNPJ: </label> <input type="text" maxlength="50" name="cpf_cnpj" value="{{vendedor.cpf_cnpj}}"></p>
+      <p> <label> RG: </label> <input type="text" maxlength="20" name="rg" value="{{vendedor.rg}}"></p>
+      <p> <label> Endereço: </label> <input type="text" maxlength="200" name="endereco" value="{{vendedor.endereco}}"></p>
+      <p> <label> Bairro: </label> <input type="text" maxlength="30" name="bairro" value="{{vendedor.bairro}}"></p>
+      <p> <label> Cidade: </label> <input type="text" maxlength="30" name="cidade" value="{{vendedor.cidade}}"></p>
+      <p> <label> Estado: </label> <input type="text" size="3" maxlength="2" name="estado" value="{{vendedor.cidade}}"></p>
+      <p> <label> CEP: </label> <input type="text" maxlength="20" name="cep" value="{{vendedor.cep}}"></p>
+      <p> <label> Telefone: </label> <input type="text" maxlength="20" name="telefone" value="{{vendedor.telefone}}"></p>
+      <p><label> Maleta:</label> <select name="id_maleta" id="id_maleta">
+        <option value="{{vendedor.id_maleta}}" selected>{{nome_maleta}}</option>
+         {% for maleta in maletas %}
+             <option value="{{ maleta.id }}"> {{ maleta.nome_maleta }} </option>
+         {% endfor %}
+      </select> </p>
+      <p> <label> Referência Empresa (1): </label> <input type="text" maxlength="50" name="ref1_empresa" value="{{vendedor.ref1_empresa}}"></p>
+      <p> <label> Contato: </label> <input type="text" maxlength="30" name="ref1_contato" value="{{vendedor.ref1_contato}}"></p>
+      <p> <label> Telefone: </label> <input type="text" maxlength="20" name="ref1_telefone" value="{{vendedor.ref1_telefone}}"></p>
+      <p> <label> Referência Empresa (2): </label> <input type="text" maxlength="50" name="ref2_empresa" value="{{vendedor.ref2_empresa}}"></p>
+      <p> <label> Contato: </label> <input type="text" maxlength="30" name="ref2_contato" value="{{vendedor.ref2_contato}}"></p>
+      <p> <label> Telefone: </label> <input type="text" maxlength="20" name="ref2_telefone" value="{{vendedor.ref2_telefone}}"></p>
+    <button type="submit"> Atualizar dados </button>
+  </form>
+</div>
+{% endblock %}

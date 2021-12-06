@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Adicionar Produto Maleta </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'efetivarAdicionarProdutoMaleta' %}">
+    {% csrf_token %}
+      <input hidden name="id_maletaaberta" value="0">
+    <p> <label> Vendedor: {{vendedor.nome_vendedor}} </label> <input hidden name="vendedor" value="{{vendedor.username}}"> </p>
+    <p> <label> Maleta: {{maleta.nome_maleta}} </label> <input hidden name="id_maletaaberta" value="{{maleta.id}}"> </p>
+    <p><label> Produtos:</label> <select name="cod_produto" id="cod_produto">
+      <option value="" selected>---------</option>
+     {% for produto in produtos %}
+         <option value="{{ produto.cod_produto }}"> {{ produto.des_produto }} </option>
+     {% endfor %}
+    </select> </p>
+    <p><label> Quantidade: </label> <input type="number" size="2" maxlength="3" name="quantidade"></p>
+    <button type="submit"> Adicionar Produto Maleta </button>
+  </form>
+</div>
+{% endblock %}

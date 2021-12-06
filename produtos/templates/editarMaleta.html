@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container">
+  <h1> Editar Categoria </h1>
+  <h4 style="color:blue;"> {{ mensagem }} </h4>
+<form method="POST" action="{% url 'alterarMaleta' maleta.id %}">
+    {% csrf_token %}
+    <p> <label> Nome Maleta: </label> <input type="text" maxlength="30" name="nome_maleta" value="{{maleta.nome_maleta}}"> </p>
+    <p> <label> Faixa Inicial: </label> <input type="decimal" name="faixa_inicial" value="{{maleta.faixa_inicial}}"> </p>
+    <p> <label> Faixa Final: </label> <input type="decimal" name="faixa_final" value="{{maleta.faixa_final}}"> </p>
+    <button type="submit"> Atualizar dados </button>
+  </form>
+</div>
+{% endblock %}

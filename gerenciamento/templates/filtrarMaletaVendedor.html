@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Definir Comissão </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Definir Comissão Maleta x Vendedor </h1> </br>
+<form method="POST" action="{% url 'filtrarMaleta' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p><label> Vendedor(a):</label> <select name="vendedor" id="vendedor">
+    <option value="" selected>---------</option>
+   {% for vendedor in vendedores %}
+       <option value="{{ vendedor.username }}"> {{ vendedor.nome_vendedor }} </option>
+   {% endfor %}
+   </select></p>
+  <button type="submit"> Buscar Maleta Vendedor </button>
+</form>
+</div>
+{% endblock %}

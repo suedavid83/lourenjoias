@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Listar Comissões </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Listar Comissões </h1> </br>
+<form method="POST" action="{% url 'filtrarComissoes' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Nome do Vendedor: <input name="nome_vendedor"> ou o Nome da Maleta <input name="nome_maleta">
+  <button type="submit"> Filtrar </button>
+</form>
+</div>
+<div class="tabelas-principal">
+    <h4 style="color:blue;"> {{mensagem}} </h4>
+    <table class="table table-striped">
+      <tr>
+        <th> Maleta </th> <th> Vendedor </th> <th> Valor Comissão </th> <th> Editar </th> <th> Deletar </th>
+      </tr>
+      {% for comissao in comissoes %}
+        <tr>
+          <td> {{comissao.nome_maleta}} </td>
+          <td> {{comissao.nome_vendedor}} </td>
+          <td> {{comissao.valor_comissao}}% </td>
+          <td> <a href="{% url 'editarComissao' comissao.id %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+          <td> <a href="{% url 'deletarComissao' comissao.id %}"> <img width="30" height="30" src="{% static 'images/cancel.png' %}"/> </a> </td>
+        </tr>
+      {% endfor %}
+</div>
+{% endblock %}

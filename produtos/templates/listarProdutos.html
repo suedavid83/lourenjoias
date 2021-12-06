@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head%}
+  <title> Listar Produtos </title>
+{% endblock %}
+
+{% block body%}
+<div class="container">
+  <h1> Listar Produtos </h1> </br>
+<form method="POST" action="{% url 'listarProduto' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p> Informe o Código do Produto: <input name="cod_produto"> ou Informe o Nome do Produto: <input name="des_produto">
+  <button type="submit"> Filtrar </button>
+</form>
+</div>
+<div class="tabelas-principal">
+    <h4 style="color:blue;"> {{mensagem}} </h4>
+    <table class="table table-striped">
+      {% if request.user.groups.all.0.name == 'admin' %}
+          <tr>
+            <th> Data Inserção </th> <th> Código Produto </th> <th> Descrição </th> <th> Fornecedor </th> <th> Preço Unitário </th> <th> Valor Custo </th> <th> Coleção </th> <th> Qtde. Estoque </th> <th> Categoria </th> <th> Foto Produto </th> <th> Editar </th> <th> Deletar </th>
+          </tr>
+          {% for produto in produtos %}
+            <tr>
+              <td> {{produto.dt_insercao}} </td>
+              <td> {{produto.cod_produto}} </td>
+              <td> {{produto.des_produto}} </td>
+              <td> {{produto.nome_fornecedor}} </td>
+              <td> {{produto.preco_unitario}} </td>
+              <td> {{produto.valor_custo}} </td>
+              <td> {{produto.colecao}} </td>
+              <td> {{produto.qtde_estoque}} </td>
+              <td> {{produto.des_categoria}} </td>
+              <td>
+                {% if produto.img_produto %}
+                    <a href="{{produto.img_produto.url}}" target="blank"><img widht="80px" height="50px" src="{{produto.img_produto.url}}"/></a>
+                {% endif %}
+              </td>
+              <td> <a href="{% url 'editarProduto' produto.id %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+              <td> <a href="{% url 'deletarProduto' produto.cod_produto %}"> <img width="30" height="30" src="{% static 'images/cancel.png' %}"/> </a> </td>
+            </tr>
+           {% endfor %}
+        {% else %}
+          <tr>
+            <th> Data Inserção </th> <th> Código Produto </th> <th> Descrição </th> <th> Fornecedor </th> <th> Preço Unitário </th> <th> Coleção </th> <th> Qtde. Estoque </th> <th> Categoria </th> <th> Foto Produto </th> <th> Editar </th> <th> Deletar </th>
+          </tr>
+          {% for produto in produtos %}
+            <tr>
+              <td> {{produto.dt_insercao}} </td>
+              <td> {{produto.cod_produto}} </td>
+              <td> {{produto.des_produto}} </td>
+              <td> {{produto.nome_fornecedor}} </td>
+              <td> {{produto.preco_unitario}} </td>
+              <td> {{produto.colecao}} </td>
+              <td> {{produto.qtde_estoque}} </td>
+              <td> {{produto.des_categoria}} </td>
+              <td>
+                {% if produto.img_produto %}
+                    <a href="{{produto.img_produto.url}}" target="blank"><img widht="80px" height="50px" src="{{produto.img_produto.url}}"/></a>
+                {% endif %}
+              </td>
+              <td> <a href="{% url 'editarProduto' produto.id %}"> <img width="30" height="30" src="{% static 'images/editar.jpg' %}"/> </a> </td>
+              <td> <a href="{% url 'deletarProduto' produto.cod_produto %}"> <img width="30" height="30" src="{% static 'images/cancel.png' %}"/> </a> </td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+    </table>
+</div>
+{% endblock %}
